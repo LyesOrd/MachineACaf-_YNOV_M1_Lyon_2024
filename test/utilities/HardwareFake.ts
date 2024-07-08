@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HardwareInterface } from "../../src/hardware/hardware.interface";
 import { Pièce } from "../../src/Pièce";
 
@@ -10,6 +11,20 @@ export class HardwareFake implements HardwareInterface {
     this._invocationsMakeACoffee++;
     return true;
   }
+=======
+import {HardwareInterface} from "../../src/hardware/hardware.interface";
+import {Pièce} from "../../src/Pièce";
+import {HardwareDummy} from "./HardwareDummy";
+
+export interface HardwareFakeInterface extends HardwareInterface {
+    SimulerInsertionPièce(pièce: Pièce): void;
+    CountInvocationsMakeACoffee(): number;
+}
+
+export class HardwareFake extends HardwareDummy {
+    private _moneyInsertedCallback: (coinValue: number) => void = () => {};
+    private _invocationsMakeACoffee: number = 0;
+>>>>>>> 6d76a8b296d9701355faace3feb11642058b00a6
 
   RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void {
     this._moneyInsertedCallback = callback;
@@ -23,6 +38,7 @@ export class HardwareFake implements HardwareInterface {
     this._moneyInsertedCallback(pièce.getMontant());
   }
 
+<<<<<<< HEAD
   SimulerSelectionerSucre(hasSugar: boolean) {
     this._sugarSelectedCallback(hasSugar);
   }
@@ -35,3 +51,9 @@ export class HardwareFake implements HardwareInterface {
     return this._invocationsMakeACoffee;
   }
 }
+=======
+    public CountInvocationsMakeACoffee() : number {
+        return this._invocationsMakeACoffee;
+    }
+}
+>>>>>>> 6d76a8b296d9701355faace3feb11642058b00a6

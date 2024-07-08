@@ -61,12 +61,19 @@ export interface ButtonPanelInterface {
      * @param callback prend un unique paramètre qui contiendra l'ID du bouton pressé
      */
     RegisterButtonPressedCallback(callback: (buttonCode: ButtonCodes) => void): void;
+
+    /**
+     * Allume ou éteint la LED informant de l'impossibilité d'avoir un allongé
+     * @param state le nouvel état de la LED
+     */
+    SetLungoWarningLedState(state: boolean): void;
 }
 
 export enum ButtonCodes {
     BTN_LUNGO = 0,
     BTN_SUGAR = 1,
-    BTN_MILK = 2
+    BTN_MILK = 2,
+    BTN_MAINTENANCE_RESET = 3
 }
 
 export interface ChangeMachineInterface {

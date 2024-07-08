@@ -1,11 +1,11 @@
 import {MachineACafé} from "../../src/MachineACafé";
 import {Pièce} from "../../src/Pièce";
-import {HardwareFake} from "./HardwareFake";
+import {HardwareFakeInterface} from "./HardwareFake";
 
 export class MachineACaféHarness extends MachineACafé {
-    private hardware: HardwareFake;
+    private hardware: HardwareFakeInterface;
 
-    public constructor(hardware: HardwareFake) {
+    public constructor(hardware: HardwareFakeInterface) {
         super(hardware);
         this.hardware = hardware;
     }

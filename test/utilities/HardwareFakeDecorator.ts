@@ -43,13 +43,3 @@ export class HardwareFakeDecorator extends HardwareFake {
         return this._decorated.PourSugar()
     }
 }
-
-export class PénurieGobeletsDecorator extends HardwareFakeDecorator {
-    public constructor(decorated: HardwareFake) {
-        super(decorated);
-    }
-
-    ProvideCup(): void {
-        throw new Error("Plus de gobelets")
-    }
-}
