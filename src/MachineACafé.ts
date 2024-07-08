@@ -1,25 +1,33 @@
-import {Pièce} from "./Pièce";
-import {HardwareInterface} from "./hardware/hardware.interface";
+import { Pièce } from "./Pièce";
+import { HardwareInterface } from "./hardware/hardware.interface";
 
 export class MachineACafé {
-    private readonly _hardware: HardwareInterface;
+  private readonly _hardware: HardwareInterface;
 
-    constructor(hardware: HardwareInterface) {
-        hardware.RegisterMoneyInsertedCallback((montant: number) => {
-            this.insérer(Pièce.Parse(montant))
-        })
+  argentEncaisséEnCentimes: number = 0;
+  hasSugar: boolean = false;
 
-        this._hardware = hardware
-    }
+  constructor(hardware: HardwareInterface) {
+    hardware.RegisterMoneyInsertedCallback((montant: number) => {
+      this.insérer(Pièce.Parse(montant));
+    });
 
-    private static readonly PrixDuCafé = Pièce.CinquanteCentimes;
+    hardware.RegisterSugarSelectedCallback((hasSugar) => {
+      this.selectionerSucre(hasSugar);
+    });
 
-    argentEncaisséEnCentimes: number = 0;
+    this._hardware = hardware;
+  }
 
-    private insérer(pièce: Pièce) {
-        if(pièce.EstInférieureA(MachineACafé.PrixDuCafé)) return
+  private static readonly PrixDuCafé = Pièce.CinquanteCentimes;
 
-        this._hardware.MakeACoffee()
-        this.argentEncaisséEnCentimes += pièce.getMontant()
-    }
+  private insérer(pièce: Pièce) {
+    if (pièce.EstInférieureA(MachineACafé.PrixDuCafé)) return;
+    this._hardware.MakeACoffee();
+    this.argentEncaisséEnCentimes += pièce.getMontant();
+  }
+
+  public selectionerSucre(hasSugar: boolean) {
+    this.hasSugar = hasSugar;
+  }
 }

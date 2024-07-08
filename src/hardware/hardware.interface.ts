@@ -87,4 +87,11 @@ export interface ChangeMachineInterface {
      * Vide le monnayeur et encaisse l'argent
      */
     CollectStoredMoney(): void;
+  /**
+   * Enregistre un callback, qui sera appelé lors de l'insertion d'une pièce reconnue valide
+   * @param callback prend un unique paramètre où sera injecté la valeur de la pièce détectée
+   */
+  RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void;
+
+  RegisterSugarSelectedCallback(callback: (hasSugar: boolean) => void): void;
 }
