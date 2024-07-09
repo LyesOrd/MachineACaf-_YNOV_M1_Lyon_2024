@@ -22,7 +22,8 @@ export interface BrewerInterface {
     TryPullWater(): boolean
 
     /**
-     * Ajoute une dose de lait au mélange. Il est conseillé d'ajouter le lait en premier.
+     * Ajoute une dose de lait au mélange.
+     * Il est conseillé d'ajouter le lait en premier, sauf sur le capuccino.
      * @return True si aucun problème, False si défaillance
      */
     PourMilk(): boolean
@@ -39,6 +40,13 @@ export interface BrewerInterface {
      * @return True si aucun problème, False si défaillance
      */
     PourSugar(): boolean
+
+    /**
+     * Ajoute une dose de chocolat au mélange. Il est conseillé d'ajouter le chocolat
+     * après le sucre mais avant les autre ingrédients.
+     * @return True si aucun problème, False si défaillance
+     */
+    PourChocolate(): boolean
 }
 
 export interface CupProviderInterface {
@@ -76,6 +84,17 @@ export enum ButtonCodes {
     BTN_MAINTENANCE_RESET = 3
 }
 
+export enum CoinCodes {
+    ONE_CENT = 1,
+    TWO_CENTS = 2,
+    FIVE_CENTS = 5,
+    TEN_CENTS = 10,
+    TWENTY_CENTS = 20,
+    FIFTY_CENTS = 50,
+    ONE_EURO = 100,
+    TWO_EUROS = 200,
+}
+
 export interface ChangeMachineInterface {
     /**
      * Enregistre un callback, qui sera appelé lors de l'insertion d'une pièce reconnue valide
@@ -83,7 +102,7 @@ export interface ChangeMachineInterface {
      * plus invoquée. Il est de la responsabilité du logiciel de surveiller cela.
      * @param callback prend un unique paramètre où sera injecté la valeur de la pièce détectée
      */
-    RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void;
+    RegisterMoneyInsertedCallback(callback: (coinValue: CoinCodes) => void): void;
 
     /**
      * Vide le monnayeur et rend l'argent
@@ -101,4 +120,12 @@ export interface ChangeMachineInterface {
   RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void;
 
   RegisterSugarSelectedCallback(callback: (hasSugar: boolean) => void): void;
+
+    /**
+     * Fait tomber une pièce depuis le stock vers la trappe à monnaie
+     * @param coin_code
+     * @return True si la pièce était disponible
+     * @return False si aucune pièce n'a pu être trouvée avec ce montant
+     */
+    DropCashback(coin_code: CoinCodes): boolean;
 }
