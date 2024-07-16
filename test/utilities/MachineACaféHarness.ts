@@ -1,20 +1,31 @@
-import {MachineACafé} from "../../src/MachineACafé";
-import {Pièce} from "../../src/Pièce";
-import {HardwareFakeInterface} from "./HardwareFake";
+import { MachineACafé } from "../../src/MachineACafé";
+import { Pièce } from "../../src/Pièce";
+import { HardwareFakeInterface } from "./HardwareFake";
 
 export class MachineACaféHarness extends MachineACafé {
-    private hardware: HardwareFakeInterface;
+  SimulerAppuieSurunBouton(buttonCode: number) {
+    return this.hardware.SimulerAppuieSurunBouton(buttonCode);
+  }
+  private hardware: HardwareFakeInterface;
 
-    public constructor(hardware: HardwareFakeInterface) {
-        super(hardware);
-        this.hardware = hardware;
-    }
+  public constructor(hardware: HardwareFakeInterface) {
+    super(hardware);
+    this.hardware = hardware;
+  }
 
-    public SimulerInsertionPièce(pièce: Pièce) : void{
-        this.hardware.SimulerInsertionPièce(pièce)
-    }
+  public SimulerInsertionPièce(pièce: Pièce): void {
+    this.hardware.SimulerInsertionPièce(pièce);
+  }
 
-    public CountInvocationsMakeACoffee() {
-        return this.hardware.CountInvocationsMakeACoffee();
-    }
+  public CountInvocationsMakeACoffee() {
+    return this.hardware.CountInvocationsMakeACoffee();
+  }
+
+  public simulerSectionSucre(hasSugar: boolean) {
+    this.hardware.SimulerSelectionerSucre(hasSugar);
+  }
+
+  public SimulerReservoirVide() {
+    this.hardware.SimulerReservoirVide();
+  }
 }

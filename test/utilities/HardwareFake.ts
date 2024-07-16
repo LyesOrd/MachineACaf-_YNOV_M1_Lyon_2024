@@ -1,30 +1,34 @@
-<<<<<<< HEAD
-import { HardwareInterface } from "../../src/hardware/hardware.interface";
+import {
+  ButtonCodes,
+  HardwareInterface,
+} from "../../src/hardware/hardware.interface";
 import { Pièce } from "../../src/Pièce";
+import { HardwareDummy } from "./HardwareDummy";
 
-export class HardwareFake implements HardwareInterface {
+export interface HardwareFakeInterface extends HardwareInterface {
+  SimulerAppuieSurunBouton(buttonCode: ButtonCodes): void;
+  SimulerInsertionPièce(pièce: Pièce): void;
+  CountInvocationsMakeACoffee(): number;
+  SimulerSelectionerSucre(hasSugar: boolean): void;
+  SimulerReservoirVide(): boolean;
+}
+
+export class HardwareFake extends HardwareDummy {
   private _moneyInsertedCallback: (coinValue: number) => void = () => {};
   private _invocationsMakeACoffee: number = 0;
   private _sugarSelectedCallback: (hasSugar: boolean) => void = () => {};
+  private _buttonPressedCallback: (buttonCode: ButtonCodes) => void = () => {};
+
+  public RegisterButtonPressedCallback(
+    callback: (buttonCode: ButtonCodes) => void
+  ): void {
+    this._buttonPressedCallback = callback;
+  }
 
   MakeACoffee(): boolean {
     this._invocationsMakeACoffee++;
     return true;
   }
-=======
-import {HardwareInterface} from "../../src/hardware/hardware.interface";
-import {Pièce} from "../../src/Pièce";
-import {HardwareDummy} from "./HardwareDummy";
-
-export interface HardwareFakeInterface extends HardwareInterface {
-    SimulerInsertionPièce(pièce: Pièce): void;
-    CountInvocationsMakeACoffee(): number;
-}
-
-export class HardwareFake extends HardwareDummy {
-    private _moneyInsertedCallback: (coinValue: number) => void = () => {};
-    private _invocationsMakeACoffee: number = 0;
->>>>>>> 6d76a8b296d9701355faace3feb11642058b00a6
 
   RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void {
     this._moneyInsertedCallback = callback;
@@ -38,22 +42,15 @@ export class HardwareFake extends HardwareDummy {
     this._moneyInsertedCallback(pièce.getMontant());
   }
 
-<<<<<<< HEAD
   SimulerSelectionerSucre(hasSugar: boolean) {
     this._sugarSelectedCallback(hasSugar);
   }
 
-  public SimulerReservoirSucreVide() {
-    this._sugarSelectedCallback(false);
+  public SimulerAppuieSurunBouton(buttonCode: number) {
+    this._buttonPressedCallback(buttonCode);
   }
 
   public CountInvocationsMakeACoffee() {
     return this._invocationsMakeACoffee;
   }
 }
-=======
-    public CountInvocationsMakeACoffee() : number {
-        return this._invocationsMakeACoffee;
-    }
-}
->>>>>>> 6d76a8b296d9701355faace3feb11642058b00a6

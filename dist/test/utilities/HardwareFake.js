@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HardwareFake = void 0;
-class HardwareFake {
+const HardwareDummy_1 = require("./HardwareDummy");
+class HardwareFake extends HardwareDummy_1.HardwareDummy {
     constructor() {
+        super(...arguments);
         this._moneyInsertedCallback = () => { };
         this._invocationsMakeACoffee = 0;
         this._sugarSelectedCallback = () => { };
+        this._buttonPressedCallback = () => { };
+    }
+    RegisterButtonPressedCallback(callback) {
+        this._buttonPressedCallback = callback;
     }
     MakeACoffee() {
         this._invocationsMakeACoffee++;
@@ -23,8 +29,8 @@ class HardwareFake {
     SimulerSelectionerSucre(hasSugar) {
         this._sugarSelectedCallback(hasSugar);
     }
-    SimulerReservoirSucreVide() {
-        this._sugarSelectedCallback(false);
+    SimulerAppuieSurunBouton(buttonCode) {
+        this._buttonPressedCallback(buttonCode);
     }
     CountInvocationsMakeACoffee() {
         return this._invocationsMakeACoffee;

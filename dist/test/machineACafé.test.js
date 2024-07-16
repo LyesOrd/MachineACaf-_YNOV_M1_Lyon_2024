@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const hardware_interface_1 = require("../src/hardware/hardware.interface");
 const Pi_ce_1 = require("../src/Pi\u00E8ce");
 require("./utilities/HardwareMatchers");
 const MachineACaf_Builder_1 = require("./utilities/MachineACaf\u00E9Builder");
@@ -43,13 +44,13 @@ describe("MVP", () => {
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(pièce.getMontant());
     });
-    test("Cas sucré", () => {
+    test("ETANT DONNEE une machine à café QUAND le réservoir de sucre est vide ALORS servir un café quand même", () => {
         // ETANT DONNE une machine a café
         let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        // ET le reservoir de sucre est vide
+        machineACafé.SimulerReservoirVide();
         // QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
-        // ALORS il a été demandé au hardware de servir un café sucré
-        expect(machineACafé.hasSugar).toBe(true);
         // ALORS il a été demandé au hardware de servir un café
         expect(machineACafé).unCaféEstServi();
     });
@@ -61,6 +62,14 @@ describe("MVP", () => {
         // QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
         // ALORS il a été demandé au hardware de servir un café
+        expect(machineACafé).unCaféEstServi();
+    });
+    // ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule
+    test("ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule", () => {
+        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        //QUAND
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_LUNGO);
+        //ALORS
         expect(machineACafé).unCaféEstServi();
     });
 });
