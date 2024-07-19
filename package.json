@@ -7,7 +7,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "test": "jest --coverage --verbose",
+    "test": "jest --verbose",
     "dev": "nodemon src/index.ts",
     "build": "npx tsc"
   }
