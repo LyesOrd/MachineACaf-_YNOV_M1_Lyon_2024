@@ -21,11 +21,11 @@ export class MachineACaféHarness extends MachineACafé {
     return this.hardware.CountInvocationsMakeACoffee();
   }
 
-  public simulerSectionSucre(hasSugar: boolean) {
-    this.hardware.SimulerSelectionerSucre(hasSugar);
+  public CountSugarSelected() {
+    return this.hardware.CountNumberOfSugarSelected();
   }
 
-  public SimulerReservoirVide() {
-    this.hardware.SimulerReservoirVide();
+  public SimuleSelectionDuScure(hasSugar: boolean) {
+    this.hardware.SimulerSelectionerSucre(hasSugar);
   }
 }

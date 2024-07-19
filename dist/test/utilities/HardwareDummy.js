@@ -2,9 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HardwareDummy = void 0;
 class HardwareDummy {
-    SimulerReservoirVide() {
-        return this.PourSugar();
-    }
     SimulerAppuieSurunBouton(buttonCode) {
         throw new Error("Method not implemented.");
     }

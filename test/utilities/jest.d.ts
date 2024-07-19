@@ -5,6 +5,7 @@ declare global {
       aucunCaféNEstServi(): R;
       unCaféEstServi(): R;
       unSucreEstSélectionné(): R;
+      xSucreOntÉtéSélectionnés(expected: number): R;
     }
   }
 }

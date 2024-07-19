@@ -9,9 +9,9 @@ class MachineACafé {
         hardware.RegisterMoneyInsertedCallback((montant) => {
             this.insérer(Pi_ce_1.Pièce.Parse(montant));
         });
-        hardware.RegisterSugarSelectedCallback((hasSugar) => {
-            this.selectionerSucre(hasSugar);
-        });
+        // hardware.RegisterSugarSelectedCallback((hasSugar) => {
+        //   this.AselectionnerDuScure(hasSugar);
+        // });
         this._hardware = hardware;
     }
     insérer(pièce) {
@@ -20,8 +20,8 @@ class MachineACafé {
         this._hardware.MakeACoffee();
         this.argentEncaisséEnCentimes += pièce.getMontant();
     }
-    selectionerSucre(hasSugar) {
-        this.hasSugar = hasSugar;
+    AselectionnerDuScure() {
+        this.hasSugar = this._hardware.PourSugar();
     }
 }
 exports.MachineACafé = MachineACafé;

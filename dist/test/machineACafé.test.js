@@ -48,17 +48,7 @@ describe("MVP", () => {
         // ETANT DONNE une machine a café
         let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
         // ET le reservoir de sucre est vide
-        machineACafé.SimulerReservoirVide();
-        // QUAND on insère 50cts
-        machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
-        // ALORS il a été demandé au hardware de servir un café
-        expect(machineACafé).unCaféEstServi();
-    });
-    test("ETANT DONNEE le reservoir de sucre vide, doit servir un café quand même", () => {
-        // ETANT DONNE une machine a café
-        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
-        // ET le reservoir de sucre est vide
-        // machineACafé.reservoirSucreVide = true;
+        machineACafé.SimuleSelectionDuScure(false);
         // QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
         // ALORS il a été demandé au hardware de servir un café

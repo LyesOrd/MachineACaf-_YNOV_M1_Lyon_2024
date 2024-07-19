@@ -10,12 +10,13 @@ export interface HardwareFakeInterface extends HardwareInterface {
   SimulerInsertionPièce(pièce: Pièce): void;
   CountInvocationsMakeACoffee(): number;
   SimulerSelectionerSucre(hasSugar: boolean): void;
-  SimulerReservoirVide(): boolean;
+  CountNumberOfSugarSelected(): number;
 }
 
 export class HardwareFake extends HardwareDummy {
   private _moneyInsertedCallback: (coinValue: number) => void = () => {};
   private _invocationsMakeACoffee: number = 0;
+  private _numberOfSugarSelected: number = 2;
   private _sugarSelectedCallback: (hasSugar: boolean) => void = () => {};
   private _buttonPressedCallback: (buttonCode: ButtonCodes) => void = () => {};
 
@@ -48,6 +49,10 @@ export class HardwareFake extends HardwareDummy {
 
   public SimulerAppuieSurunBouton(buttonCode: number) {
     this._buttonPressedCallback(buttonCode);
+  }
+
+  public CountNumberOfSugarSelected() {
+    return this._numberOfSugarSelected;
   }
 
   public CountInvocationsMakeACoffee() {

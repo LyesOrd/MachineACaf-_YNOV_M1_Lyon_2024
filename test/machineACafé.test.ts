@@ -4,6 +4,7 @@ import { Pièce } from "../src/Pièce";
 import { HardwareFake } from "./utilities/HardwareFake";
 import "./utilities/HardwareMatchers";
 import { MachineACaféBuilder } from "./utilities/MachineACaféBuilder";
+import { MachineACaféHarness } from "./utilities/MachineACaféHarness";
 
 describe("MVP", () => {
   test("Cas 2 cafés", () => {
@@ -66,7 +67,7 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // ET le reservoir de sucre est vide
-    machineACafé.SimulerReservoirVide();
+    machineACafé.SimuleSelectionDuScure(false);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -75,12 +76,14 @@ describe("MVP", () => {
     expect(machineACafé).unCaféEstServi();
   });
 
-  test("ETANT DONNEE le reservoir de sucre vide, doit servir un café quand même", () => {
+  test("ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer plusieur fois ALORS servir un café avec du sucre si le nombre de fois appuyer est impair", () => {
     // ETANT DONNE une machine a café
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
-    // ET le reservoir de sucre est vide
-    // machineACafé.reservoirSucreVide = true;
+    // QUAND on appuie 3 fois sur le bouton du sucre
+    machineACafé.SimuleSelectionDuScure(true);
+    machineACafé.SimuleSelectionDuScure(true);
+    machineACafé.SimuleSelectionDuScure(true);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -89,14 +92,18 @@ describe("MVP", () => {
     expect(machineACafé).unCaféEstServi();
   });
 
-  // ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule
-  test("ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule", () => {
+  test("ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer plusieur fois ALORS servir un café sans sucre si le nombre de fois appuyer est pair", () => {
+    // ETANT DONNE une machine a café
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
-    //QUAND
-    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_LUNGO);
+    // QUAND on appuie 2 fois sur le bouton du sucre
+    machineACafé.SimuleSelectionDuScure(true);
+    machineACafé.SimuleSelectionDuScure(true);
 
-    //ALORS
+    // QUAND on insère 50cts
+    machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
+
+    // ALORS il a été demandé au hardware de ne pas servir de café
     expect(machineACafé).unCaféEstServi();
   });
 });

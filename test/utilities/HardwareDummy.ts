@@ -3,8 +3,8 @@ import { ButtonCodes, CoinCodes } from "../../src/hardware/hardware.interface";
 import { HardwareFakeInterface } from "./HardwareFake";
 
 export class HardwareDummy implements HardwareFakeInterface {
-  SimulerReservoirVide(): boolean {
-    return this.PourSugar();
+  CountNumberOfSugarSelected(): number {
+    throw new Error("Method not implemented.");
   }
   SimulerAppuieSurunBouton(buttonCode: ButtonCodes): void {
     throw new Error("Method not implemented.");
