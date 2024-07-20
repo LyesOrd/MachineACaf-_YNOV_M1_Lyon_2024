@@ -25,7 +25,7 @@ export class MachineACaféHarness extends MachineACafé {
     return this.hardware.CountNumberOfSugarSelected();
   }
 
-  public SimuleSelectionDuScure(hasSugar: boolean) {
+  public SimuleSelectionDuSucre(hasSugar: boolean) {
     this.hardware.SimulerSelectionerSucre(hasSugar);
   }
 }

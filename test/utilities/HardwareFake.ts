@@ -31,6 +31,11 @@ export class HardwareFake extends HardwareDummy {
     return true;
   }
 
+  PourSugar(): boolean {
+    this._numberOfSugarSelected++;
+    return true;
+  }
+
   RegisterMoneyInsertedCallback(callback: (coinValue: number) => void): void {
     this._moneyInsertedCallback = callback;
   }

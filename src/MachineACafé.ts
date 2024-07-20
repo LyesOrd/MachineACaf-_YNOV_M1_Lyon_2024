@@ -1,4 +1,5 @@
 import { Pièce } from "./Pièce";
+import { Sucre } from "./Sucre";
 import { HardwareInterface } from "./hardware/hardware.interface";
 
 export class MachineACafé {
@@ -27,7 +28,11 @@ export class MachineACafé {
     this.argentEncaisséEnCentimes += pièce.getMontant();
   }
 
-  public AselectionnerDuScure() {
+  public AselectionnerDuScure(sucre: Sucre) {
+    if (sucre.getSugarAmount() < 1) return;
+    if (sucre.getSugarAmount() > 5) return;
+
+    this._hardware.PourSugar();
     this.hasSugar = this._hardware.PourSugar();
   }
 }

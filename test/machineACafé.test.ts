@@ -67,7 +67,7 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // ET le reservoir de sucre est vide
-    machineACafé.SimuleSelectionDuScure(false);
+    machineACafé.SimuleSelectionDuSucre(false);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -81,9 +81,9 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // QUAND on appuie 3 fois sur le bouton du sucre
-    machineACafé.SimuleSelectionDuScure(true);
-    machineACafé.SimuleSelectionDuScure(true);
-    machineACafé.SimuleSelectionDuScure(true);
+    machineACafé.SimuleSelectionDuSucre(true);
+    machineACafé.SimuleSelectionDuSucre(true);
+    machineACafé.SimuleSelectionDuSucre(true);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -97,13 +97,39 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // QUAND on appuie 2 fois sur le bouton du sucre
-    machineACafé.SimuleSelectionDuScure(true);
-    machineACafé.SimuleSelectionDuScure(true);
+    machineACafé.SimuleSelectionDuSucre(true);
+    machineACafé.SimuleSelectionDuSucre(true);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
 
     // ALORS il a été demandé au hardware de ne pas servir de café
     expect(machineACafé).unCaféEstServi();
+  });
+
+  test("ETANT DONNEE une machine à café QUAND le bouton du sucre n'est pas appuyer ALORS servir un café avec 2 sucre", () => {
+    // ETANT DONNE une machine a café
+    let machineACafé = MachineACaféBuilder.ParDéfaut();
+
+    // QUAND le bouton du sucre n'est pas selectionner
+    machineACafé.SimuleSelectionDuSucre(false);
+    machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
+
+    // ALORS il a été demandé au hardware de servir un café
+    expect(machineACafé).unCaféEstServi();
+    // ET le nombre de sucre est de 2
+    expect(machineACafé).xSucreOntÉtéSélectionnés(2);
+  });
+
+  test("ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer ALORS augmenter le nombre de sucres selectionner à 3 sucres", () => {
+    // ETANT DONNE une machine a café
+    let machineACafé = MachineACaféBuilder.ParDéfaut();
+
+    // QUAND le bouton du sucre est selectionner
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
+    machineACafé.SimuleSelectionDuSucre(true);
+
+    // ALORS il a été demandé au hardware le nombre de sucre à 3
+    expect(machineACafé.CountSugarSelected()).toEqual(3);
   });
 });
