@@ -7,7 +7,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "test": "jest --config jest.config.js --verbose",
+    "test": "jest --config jest.config.cjs --verbose",
     "dev": "nodemon src/index.ts",
     "build": "npx tsc"
   }

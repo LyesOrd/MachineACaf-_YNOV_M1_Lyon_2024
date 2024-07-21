@@ -16,8 +16,8 @@ class MachineACaféHarness extends MachineACaf_1.MachineACafé {
     CountInvocationsMakeACoffee() {
         return this.hardware.CountInvocationsMakeACoffee();
     }
-    SimuleSelectionDuScure(hasSugar) {
-        this.hardware.SimulerSelectionerSucre(hasSugar);
+    CountSugarSelected() {
+        return this.hardware.CountNumberOfSugarSelected();
     }
 }
 exports.MachineACaféHarness = MachineACaféHarness;

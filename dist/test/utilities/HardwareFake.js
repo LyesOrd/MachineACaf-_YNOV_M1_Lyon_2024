@@ -7,6 +7,7 @@ class HardwareFake extends HardwareDummy_1.HardwareDummy {
         super(...arguments);
         this._moneyInsertedCallback = () => { };
         this._invocationsMakeACoffee = 0;
+        this._numberOfSugarSelected = 2;
         this._sugarSelectedCallback = () => { };
         this._buttonPressedCallback = () => { };
     }
@@ -15,6 +16,10 @@ class HardwareFake extends HardwareDummy_1.HardwareDummy {
     }
     MakeACoffee() {
         this._invocationsMakeACoffee++;
+        return true;
+    }
+    PourSugar() {
+        this._numberOfSugarSelected++;
         return true;
     }
     RegisterMoneyInsertedCallback(callback) {
@@ -26,11 +31,11 @@ class HardwareFake extends HardwareDummy_1.HardwareDummy {
     SimulerInsertionPièce(pièce) {
         this._moneyInsertedCallback(pièce.getMontant());
     }
-    SimulerSelectionerSucre(hasSugar) {
-        this._sugarSelectedCallback(hasSugar);
-    }
     SimulerAppuieSurunBouton(buttonCode) {
         this._buttonPressedCallback(buttonCode);
+    }
+    CountNumberOfSugarSelected() {
+        return this._numberOfSugarSelected;
     }
     CountInvocationsMakeACoffee() {
         return this._invocationsMakeACoffee;

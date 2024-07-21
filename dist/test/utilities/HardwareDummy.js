@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HardwareDummy = void 0;
 class HardwareDummy {
-    SimulerAppuieSurunBouton(buttonCode) {
+    CountNumberOfSugarSelected() {
         throw new Error("Method not implemented.");
     }
-    SimulerSelectionerSucre(hasSugar) {
+    SimulerAppuieSurunBouton(buttonCode) {
         throw new Error("Method not implemented.");
     }
     RegisterSugarSelectedCallback(callback) {

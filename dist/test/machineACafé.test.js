@@ -44,22 +44,65 @@ describe("MVP", () => {
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(pièce.getMontant());
     });
-    test("ETANT DONNEE une machine à café QUAND le réservoir de sucre est vide ALORS servir un café quand même", () => {
+    test("cas nominal sucre : ETANT DONNEE une machine à café QUAND le réservoir de sucre est vide ALORS servir un café quand même", () => {
         // ETANT DONNE une machine a café
         let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
         // ET le reservoir de sucre est vide
-        machineACafé.SimuleSelectionDuScure(false);
+        machineACafé.CountSugarSelected = jest.fn(() => 0);
         // QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
         // ALORS il a été demandé au hardware de servir un café
         expect(machineACafé).unCaféEstServi();
     });
-    // ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule
-    test("ETANT DONNEE UNE MACHINE A CAFE QUAND J'APPUIE SUR UN BOUTON ALORS un café coule", () => {
+    test("cas sucre : ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer plusieur fois ALORS servir un café avec du sucre si le nombre de fois appuyer est impair", () => {
+        // ETANT DONNE une machine a café
         let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
-        //QUAND
-        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_LUNGO);
-        //ALORS
+        // QUAND on appuie 3 fois sur le bouton du sucre
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        // QUAND on insère 50cts
+        machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
+        // ALORS il a été demandé au hardware de servir un café
         expect(machineACafé).unCaféEstServi();
+    });
+    test("cas sucre : ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer plusieur fois ALORS servir un café sans sucre si le nombre de fois appuyer est pair", () => {
+        // ETANT DONNE une machine a café
+        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        // QUAND on appuie 2 fois sur le bouton du sucre
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        // QUAND on insère 50cts
+        machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
+        // ALORS il a été demandé au hardware de ne pas servir de café
+        expect(machineACafé).unCaféEstServi();
+    });
+    test("cas nominal dose de sucre : ETANT DONNEE une machine à café QUAND le bouton du sucre n'est pas appuyer ALORS servir un café avec 2 sucre", () => {
+        // ETANT DONNE une machine a café
+        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        // QUAND le bouton du sucre n'est pas selectionner
+        machineACafé.SimulerInsertionPièce(Pi_ce_1.Pièce.CinquanteCentimes);
+        // ALORS il a été demandé au hardware de servir un café
+        expect(machineACafé).unCaféEstServi();
+        // ET le nombre de sucre est de 2
+        expect(machineACafé).xSucreOntÉtéSélectionnés(2);
+    });
+    test("cas dose de sucre : ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer ALORS augmenter le nombre de sucres selectionner à 3 sucres", () => {
+        // ETANT DONNE une machine a café
+        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        // QUAND le bouton du sucre est selectionner
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_PLUS);
+        machineACafé.CountSugarSelected = jest.fn(() => 3);
+        // ALORS il a été demandé au hardware le nombre de sucre à 3
+        expect(machineACafé.CountSugarSelected()).toEqual(3);
+    });
+    test("cas dose de sucre : ETANT DONNEE une machine à café QUAND le bouton du sucre est appuyer ALORS diminuer le nombre de sucres selectionner à 1 sucre", () => {
+        // ETANT DONNE une machine a café
+        let machineACafé = MachineACaf_Builder_1.MachineACaféBuilder.ParDéfaut();
+        // QUAND le bouton du sucre est selectionner
+        machineACafé.SimulerAppuieSurunBouton(hardware_interface_1.ButtonCodes.BTN_SUGAR_MINUS);
+        machineACafé.CountSugarSelected = jest.fn(() => 1);
+        // ALORS il a été demandé au hardware le nombre de sucre à 1
+        expect(machineACafé.CountSugarSelected()).toEqual(1);
     });
 });

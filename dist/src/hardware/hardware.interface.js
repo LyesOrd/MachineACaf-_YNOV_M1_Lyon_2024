@@ -4,8 +4,12 @@ exports.CoinCodes = exports.ButtonCodes = void 0;
 var ButtonCodes;
 (function (ButtonCodes) {
     ButtonCodes[ButtonCodes["BTN_LUNGO"] = 0] = "BTN_LUNGO";
-    ButtonCodes[ButtonCodes["BTN_SUGAR"] = 1] = "BTN_SUGAR";
-    ButtonCodes[ButtonCodes["BTN_MILK"] = 2] = "BTN_MILK";
+    ButtonCodes[ButtonCodes["BTN_SUGAR_PLUS"] = 1] = "BTN_SUGAR_PLUS";
+    ButtonCodes[ButtonCodes["BTN_SUGAR_MINUS"] = 4] = "BTN_SUGAR_MINUS";
+    ButtonCodes[ButtonCodes["BTN_LATTE"] = 2] = "BTN_LATTE";
+    ButtonCodes[ButtonCodes["BTN_CHOCOLATE_WATER"] = 5] = "BTN_CHOCOLATE_WATER";
+    ButtonCodes[ButtonCodes["BTN_CHOCOLATE_MILK"] = 6] = "BTN_CHOCOLATE_MILK";
+    ButtonCodes[ButtonCodes["BTN_CAPUCCINO"] = 7] = "BTN_CAPUCCINO";
     ButtonCodes[ButtonCodes["BTN_MAINTENANCE_RESET"] = 3] = "BTN_MAINTENANCE_RESET";
 })(ButtonCodes || (exports.ButtonCodes = ButtonCodes = {}));
 var CoinCodes;

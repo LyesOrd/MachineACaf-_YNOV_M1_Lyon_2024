@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MachineACafé = void 0;
 const Pi_ce_1 = require("./Pi\u00E8ce");
+const Sucre_1 = require("./Sucre");
 class MachineACafé {
     constructor(hardware) {
         this.argentEncaisséEnCentimes = 0;
@@ -9,9 +10,9 @@ class MachineACafé {
         hardware.RegisterMoneyInsertedCallback((montant) => {
             this.insérer(Pi_ce_1.Pièce.Parse(montant));
         });
-        // hardware.RegisterSugarSelectedCallback((hasSugar) => {
-        //   this.AselectionnerDuScure(hasSugar);
-        // });
+        hardware.RegisterSugarSelectedCallback((sugar) => {
+            this.AselectionnerDuSucre(Sucre_1.Sucre.Parse(sugar));
+        });
         this._hardware = hardware;
     }
     insérer(pièce) {
@@ -20,7 +21,12 @@ class MachineACafé {
         this._hardware.MakeACoffee();
         this.argentEncaisséEnCentimes += pièce.getMontant();
     }
-    AselectionnerDuScure() {
+    AselectionnerDuSucre(sucre) {
+        if (sucre.getSugarAmount() < 1)
+            return;
+        if (sucre.getSugarAmount() > 5)
+            return;
+        this._hardware.PourSugar();
         this.hasSugar = this._hardware.PourSugar();
     }
 }

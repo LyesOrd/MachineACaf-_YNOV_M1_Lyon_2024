@@ -37,20 +37,22 @@ const xCafésSontServis = function (actual, expected) {
         pass: pass,
     };
 };
-// const unSucreEstSélectionné: MatcherFunction =
-//     function (actual: unknown) {
-//         if(!(actual instanceof MachineACaféHarness))
-//             throw new Error("Only works with MachineACaféHarness");
-//         const pass = actual.simulerSectionSucre();
-//         const message = `Sucre sélectionné.`
-//         return {
-//             message: () => message,
-//             pass: pass
-//         }
-//     };
+const xSucreOntÉtéSélectionnés = function (actual, expected) {
+    if (!(actual instanceof MachineACaf_Harness_1.MachineACaféHarness))
+        throw new Error("Only works with MachineACaféHarness");
+    if (!Number.isInteger(expected))
+        throw new Error("Only works with integer");
+    const delta = actual.CountSugarSelected();
+    const pass = delta == expected;
+    const message = `${delta} sucre choisis.`;
+    return {
+        message: () => message,
+        pass: pass,
+    };
+};
 globals_1.expect.extend({
     aucunCaféNEstServi,
     xCafésSontServis,
     unCaféEstServi,
-    //   unSucreEstSélectionné,
+    xSucreOntÉtéSélectionnés,
 });
