@@ -67,7 +67,7 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // ET le reservoir de sucre est vide
-    machineACafé.SimuleSelectionDuSucre(false);
+    machineACafé.CountSugarSelected = jest.fn(() => 0);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -81,9 +81,9 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // QUAND on appuie 3 fois sur le bouton du sucre
-    machineACafé.SimuleSelectionDuSucre(true);
-    machineACafé.SimuleSelectionDuSucre(true);
-    machineACafé.SimuleSelectionDuSucre(true);
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -97,8 +97,8 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // QUAND on appuie 2 fois sur le bouton du sucre
-    machineACafé.SimuleSelectionDuSucre(true);
-    machineACafé.SimuleSelectionDuSucre(true);
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
+    machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
 
     // QUAND on insère 50cts
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
@@ -112,7 +112,6 @@ describe("MVP", () => {
     let machineACafé = MachineACaféBuilder.ParDéfaut();
 
     // QUAND le bouton du sucre n'est pas selectionner
-    machineACafé.SimuleSelectionDuSucre(false);
     machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes);
 
     // ALORS il a été demandé au hardware de servir un café
@@ -127,7 +126,6 @@ describe("MVP", () => {
 
     // QUAND le bouton du sucre est selectionner
     machineACafé.SimulerAppuieSurunBouton(ButtonCodes.BTN_SUGAR_PLUS);
-    machineACafé.SimuleSelectionDuSucre(true);
 
     // ALORS il a été demandé au hardware le nombre de sucre à 3
     expect(machineACafé.CountSugarSelected()).toEqual(3);

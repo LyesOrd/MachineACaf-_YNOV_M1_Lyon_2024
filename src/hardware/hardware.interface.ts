@@ -128,7 +128,7 @@ export interface ChangeMachineInterface {
    * Enregistre un callback, qui sera appelé lors de la selection du sucre via l'interface physique
    * @param callback prend un unique paramètre où sera le booléen indiquant si du sucre est demandé
    */
-  RegisterSugarSelectedCallback(callback: (hasSugar: boolean) => void): void;
+  RegisterSugarSelectedCallback(callback: (sugar: number) => void): void;
 
   /**
    * Fait tomber une pièce depuis le stock vers la trappe à monnaie

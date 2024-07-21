@@ -9,7 +9,6 @@ export interface HardwareFakeInterface extends HardwareInterface {
   SimulerAppuieSurunBouton(buttonCode: ButtonCodes): void;
   SimulerInsertionPièce(pièce: Pièce): void;
   CountInvocationsMakeACoffee(): number;
-  SimulerSelectionerSucre(hasSugar: boolean): void;
   CountNumberOfSugarSelected(): number;
 }
 
@@ -17,7 +16,7 @@ export class HardwareFake extends HardwareDummy {
   private _moneyInsertedCallback: (coinValue: number) => void = () => {};
   private _invocationsMakeACoffee: number = 0;
   private _numberOfSugarSelected: number = 2;
-  private _sugarSelectedCallback: (hasSugar: boolean) => void = () => {};
+  private _sugarSelectedCallback: (sugar: number) => void = () => {};
   private _buttonPressedCallback: (buttonCode: ButtonCodes) => void = () => {};
 
   public RegisterButtonPressedCallback(
@@ -40,16 +39,12 @@ export class HardwareFake extends HardwareDummy {
     this._moneyInsertedCallback = callback;
   }
 
-  RegisterSugarSelectedCallback(callback: (hasSugar: boolean) => void): void {
+  RegisterSugarSelectedCallback(callback: (sugar: number) => void): void {
     this._sugarSelectedCallback = callback;
   }
 
   public SimulerInsertionPièce(pièce: Pièce): void {
     this._moneyInsertedCallback(pièce.getMontant());
-  }
-
-  SimulerSelectionerSucre(hasSugar: boolean) {
-    this._sugarSelectedCallback(hasSugar);
   }
 
   public SimulerAppuieSurunBouton(buttonCode: number) {

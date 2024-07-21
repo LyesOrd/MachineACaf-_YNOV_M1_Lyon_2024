@@ -9,10 +9,7 @@ export class HardwareDummy implements HardwareFakeInterface {
   SimulerAppuieSurunBouton(buttonCode: ButtonCodes): void {
     throw new Error("Method not implemented.");
   }
-  SimulerSelectionerSucre(hasSugar: boolean): void {
-    throw new Error("Method not implemented.");
-  }
-  RegisterSugarSelectedCallback(callback: (hasSugar: boolean) => void): void {
+  RegisterSugarSelectedCallback(callback: (sugar: number) => void): void {
     throw new Error("Method not implemented.");
   }
   DropCashback(coin_code: CoinCodes): boolean {

@@ -13,9 +13,9 @@ export class MachineACafé {
       this.insérer(Pièce.Parse(montant));
     });
 
-    // hardware.RegisterSugarSelectedCallback((hasSugar) => {
-    //   this.AselectionnerDuScure(hasSugar);
-    // });
+    hardware.RegisterSugarSelectedCallback((sugar: number) => {
+      this.AselectionnerDuSucre(Sucre.Parse(sugar));
+    });
 
     this._hardware = hardware;
   }
@@ -28,7 +28,7 @@ export class MachineACafé {
     this.argentEncaisséEnCentimes += pièce.getMontant();
   }
 
-  public AselectionnerDuScure(sucre: Sucre) {
+  public AselectionnerDuSucre(sucre: Sucre) {
     if (sucre.getSugarAmount() < 1) return;
     if (sucre.getSugarAmount() > 5) return;
 
